@@ -1,10 +1,12 @@
 <!doctype html>
-<html lang="fr"><head>
+<!-- Éditeur de site — version 4.5 du 13/11/2026 (v1.0 : Tréso-Solution ; v2.0 : tous sites, dossiers et .zip ; v2.1 : historique et retour arrière ; v2.2 : mode d’emploi illustré, surbrillance ; v2.3 : sites récents, remise à zéro, fermer ; v2.4 : étirer une zone, boutons en surbrillance ; v2.5 : boutons Ouvrir un dossier et Sites récents en couleur ; v2.6 : brouillon pour tous les sites, copie de sécurité, collage propre, photos réduites, barre de texte, titre et description Google, renommer/supprimer une page, aperçu téléphone, vérification du site, YouTube, couleurs ; v2.7 : assistant IA (Claude, ChatGPT ou Mistral, clé gardée dans le navigateur) ; v2.8 : menu Fichier, affichage simple, ajout de photos et d’albums, zones protégées et mode administrateur ; v2.9 : blocs prêts à l’emploi, recadrer et tourner une photo, récapitulatif avant d’enregistrer, visite guidée, image de partage et icône de l’onglet ; v3.0 : bouton Publier vers GitHub Pages ; v3.1 : choix des outils affichés, un par un ; v3.2 : bouton Outils rouge dans la barre du haut ; v3.3 : publication, message clair quand GitHub Pages n’est pas activé ; v3.4 : le site en ligne comme référence (ouvrir la version en ligne, réunir les modifications de plusieurs personnes, versions publiées et retour en arrière) ; v3.5 : l’éditeur lui-même en ligne, à l’adresse du site + /editeur/ ; v3.6 : nom de domaine branché seulement le jour de la bascule, réglage GitHub automatique, une clé pour plusieurs sites ; v3.7 : déplacer un élément à la souris, bouton Publier toujours visible ; v3.8 : sites en ligne déjà connus proposés d’office ; v3.9 : une clé pour tous les sites, « Mes sites » à l’accueil, l’éditeur en ligne à une seule adresse ; v4.0 : confirmation du site visé, blocage si ce n’est pas le bon site, sauvegarde .zip de chaque version ; v4.1 : statistiques de visites GoatCounter ; v4.2 : mise en ligne de l’éditeur expliquée pas à pas ; v4.3 : réglage manuel replié, la clé d’abord ; v4.4 : adresse du site en clair dans la barre et dans « Mes sites » ; v4.5 : nettoyage de l’historique, mise à jour de l’éditeur en ligne plus claire) -->
+<html lang="fr">
+<head>
 <meta name="editeur-central" content="rsale1107">
 <meta name="robots" content="noindex, nofollow">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Éditeur de site v4.3</title>
+<title>Éditeur de site v4.5</title>
 <style>
 /* Outil de bureau : barre d'actions en haut, réglages à gauche, page modifiable à droite */
 :root{
@@ -95,6 +97,10 @@ iframe{flex:1;border:0;background:#fff;width:100%;height:100%}
 .pubtarget b{font-size:14px;color:var(--navy)}.pubtarget span{font-size:12px;color:var(--muted)}
 .pubtarget .arw{align-self:center;font-size:22px;color:#1f8a4c}
 .danger{border:2px solid var(--danger,#c0392b);background:#fdf1ef;border-radius:10px;padding:10px 12px;margin:8px 0}
+.sitelink{display:inline-flex;align-items:center;gap:6px;color:#fff;font-weight:700;font-size:14px;text-decoration:none;border:1px solid rgba(255,255,255,.35);border-radius:8px;padding:7px 11px;white-space:nowrap;max-width:320px;overflow:hidden;text-overflow:ellipsis;background:rgba(255,255,255,.08)}
+.sitelink:hover{background:rgba(255,255,255,.18)}
+.mscard .visit{font-size:12px;font-weight:700;color:#2d6fd6;text-decoration:none;margin-top:2px}
+.mscard .visit:hover{text-decoration:underline}
 .mysites{background:#fff;border:2px solid #1f8a4c;border-radius:16px;padding:16px 20px;margin-bottom:8px;width:100%;max-width:760px;box-sizing:border-box;text-align:left}
 .mysites h3{margin:0 0 8px;font-size:17px;color:var(--navy)}
 .mslist{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
@@ -314,35 +320,35 @@ details.more>.subbox{margin:0 8px 8px}
 .aiprov label:focus-within{outline:2px solid #6b4fc8;outline-offset:2px}
 @media (max-width:820px){.main{flex-direction:column}.side{width:auto;flex:0 0 auto;max-height:45vh;border-right:0;border-bottom:1px solid var(--line)}.status{margin-left:0;flex-basis:100%}}
 </style>
-<meta name="editeur-publication" content="rsale1107/editeur"></head>
+</head>
 <body>
 <header class="bar">
-  <div class="brand">Éditeur de site <span>v4.3</span></div>
+  <div class="brand">Éditeur de site <span>v4.5</span></div>
   <div class="fm-wrap">
     <button id="bFile" class="btn c-blue" type="button" aria-expanded="false" aria-controls="fileMenu">Fichier ▾</button>
-    <div id="fileMenu" class="fmenu" hidden="">
+    <div id="fileMenu" class="fmenu" hidden>
       <button id="bOpenFile" class="mi" type="button">Ouvrir un fichier…<small>Un site en .html ou en .zip</small></button>
       <button id="bOpenDir" class="mi" type="button">Ouvrir un dossier…<small>Le dossier qui contient le site</small></button>
       <button id="bRecent" class="mi" type="button" aria-expanded="false" aria-controls="recentMenu">Sites récents ▸<small>Rouvrir un site déjà utilisé</small></button>
       <button id="bGhOpen" class="mi" type="button">🌐 Ouvrir le site en ligne…<small>La dernière version publiée, à jour pour tout le monde</small></button>
       <hr>
-      <button id="bStats" class="mi" type="button" hidden="">📊 Statistiques de visites<small>Visites, pages les plus vues, provenance des visiteurs</small></button>
+      <button id="bStats" class="mi" type="button" hidden>📊 Statistiques de visites<small>Visites, pages les plus vues, provenance des visiteurs</small></button>
       <button id="bEdOnline" class="mi" type="button">🌍 Mettre l’éditeur en ligne…<small>Une adresse internet pour modifier tous vos sites, pour vous et les autres</small></button>
-      <button id="bVersions" class="mi" type="button" disabled="" hidden="">🕘 Versions publiées…<small>Revoir les mises en ligne et remettre une ancienne version</small></button>
-      <button id="bZip" class="mi" type="button" disabled="" hidden="">Exporter en .zip<small>Télécharger une copie complète du site</small></button>
-      <button id="bReset" class="mi" type="button" disabled="">↺ Remise à zéro<small>Effacer tout ce qui a été fait depuis l’ouverture ou le dernier enregistrement</small></button>
-      <button id="bClose" class="mi" type="button" disabled="">Fermer le site<small>Revenir à l’écran d’accueil</small></button>
+      <button id="bVersions" class="mi" type="button" disabled hidden>🕘 Versions publiées…<small>Revoir les mises en ligne et remettre une ancienne version</small></button>
+      <button id="bZip" class="mi" type="button" disabled hidden>Exporter en .zip<small>Télécharger une copie complète du site</small></button>
+      <button id="bReset" class="mi" type="button" disabled>↺ Remise à zéro<small>Effacer tout ce qui a été fait depuis l’ouverture ou le dernier enregistrement</small></button>
+      <button id="bClose" class="mi" type="button" disabled>Fermer le site<small>Revenir à l’écran d’accueil</small></button>
       <hr>
       <button id="bAdmin" class="mi" type="button">🔒 Mode administrateur…<small>Protéger des zones du site</small></button>
     </div>
-    <div id="recentMenu" class="recent-menu" hidden=""><h3>Sites récents</h3><div class="rlist" id="recentList2"></div></div>
+    <div id="recentMenu" class="recent-menu" hidden><h3>Sites récents</h3><div class="rlist" id="recentList2"></div></div>
   </div>
   <button id="bTools" class="btn c-red" type="button" title="Choisir les outils affichés dans la colonne de gauche">🧰 Outils</button>
-  <input type="file" id="fileIn" accept=".html,.htm,.zip,text/html,application/zip" hidden="">
-  <input type="file" id="dirIn" webkitdirectory="" multiple="" hidden="">
-  <input type="file" id="addImgIn" accept="image/*" multiple="" hidden="">
-  <button id="bUndo" class="btn" type="button" disabled="" title="Ctrl+Z"><span aria-hidden="true">↶</span> Annuler</button>
-  <button id="bRedo" class="btn" type="button" disabled="" title="Ctrl+Y"><span aria-hidden="true">↷</span> Rétablir</button>
+  <input type="file" id="fileIn" accept=".html,.htm,.zip,text/html,application/zip" hidden>
+  <input type="file" id="dirIn" webkitdirectory multiple hidden>
+  <input type="file" id="addImgIn" accept="image/*" multiple hidden>
+  <button id="bUndo" class="btn" type="button" disabled title="Ctrl+Z"><span aria-hidden="true">↶</span> Annuler</button>
+  <button id="bRedo" class="btn" type="button" disabled title="Ctrl+Y"><span aria-hidden="true">↷</span> Rétablir</button>
   <div class="seg" role="group" aria-label="Mode">
     <button id="mEdit" type="button" aria-pressed="true">Modifier</button>
     <button id="mView" type="button" aria-pressed="false">Aperçu</button>
@@ -353,30 +359,31 @@ details.more>.subbox{margin:0 8px 8px}
     <button id="vPhone" type="button" aria-pressed="false" title="Largeur téléphone (390 px)">Téléphone</button>
   </div>
   <span class="sep" aria-hidden="true"></span>
-  <button id="bSave" class="btn primary" type="button" disabled="" title="Ctrl+S">Enregistrer</button>
-  <button id="bPub" class="btn c-pub" type="button" hidden="" disabled="" title="Mettre le site en ligne">🌐 Publier</button>
+  <button id="bSave" class="btn primary" type="button" disabled title="Ctrl+S">Enregistrer</button>
+  <button id="bPub" class="btn c-pub" type="button" hidden disabled title="Mettre le site en ligne">🌐 Publier</button>
   <button id="bHelp" class="btn help-btn" type="button"><span aria-hidden="true">?</span> Aide</button>
-  <span id="adminTag" class="admin-tag" hidden="">🔒 Administrateur <button type="button" id="bAdminOff">Quitter</button></span>
+  <a id="siteLink" class="sitelink" href="#" target="_blank" rel="noopener" hidden title="Ouvrir le site en ligne dans un nouvel onglet"></a>
+  <span id="adminTag" class="admin-tag" hidden>🔒 Administrateur <button type="button" id="bAdminOff">Quitter</button></span>
   <span id="status" class="status" role="status">Aucun site ouvert</span>
 </header>
 
 <div class="main">
   <aside class="side">
-    <section class="panel offer" id="draftOffer" hidden=""></section>
-    <section class="panel offer" id="ghOffer" hidden=""></section>
-    <section class="panel admin" id="adminPanel" hidden="">
+    <section class="panel offer" id="draftOffer" hidden></section>
+    <section class="panel offer" id="ghOffer" hidden></section>
+    <section class="panel admin" id="adminPanel" hidden>
       <h2>Mode administrateur <button type="button" class="qh" data-help="g-admin" aria-label="Aide : mode administrateur">?</button></h2>
       <div id="adminBox"></div>
     </section>
     <section class="panel">
       <h2>Pages <button type="button" class="qh" data-help="g-pages" aria-label="Aide : les pages">?</button></h2>
-      <div id="siteName" class="site-name" hidden=""></div>
+      <div id="siteName" class="site-name" hidden></div>
       <div id="pages" class="pages"><p class="hint">Ouvrez un site pour voir ses pages.</p></div>
       <label class="chk tool-hidden" for="showHidden"><input type="checkbox" id="showHidden">Afficher aussi les éléments masqués (onglets fermés, messages de confirmation…)</label>
       <label class="f tool-pages" for="npName">Nouvelle page, copie de la page affichée
-        <span class="row"><input type="text" id="npName" placeholder="Nom, ex. Témoignages"><button id="npGo" class="btn" type="button" disabled="">Créer</button></span>
+        <span class="row"><input type="text" id="npName" placeholder="Nom, ex. Témoignages"><button id="npGo" class="btn" type="button" disabled>Créer</button></span>
       </label>
-      <div id="npMsg" class="tool-pages" hidden=""></div>
+      <div id="npMsg" class="tool-pages" hidden></div>
     </section>
 
     <section class="panel">
@@ -392,7 +399,7 @@ details.more>.subbox{margin:0 8px 8px}
     <section class="panel ai-panel tool-ai">
       <h2>Assistant IA ✨ <button type="button" class="qh" data-help="g-ia" aria-label="Aide : assistant IA">?</button></h2>
       <div id="aiBox"><p class="hint">Ouvrez un site pour utiliser l’assistant.</p></div>
-      <div id="aiOut" hidden=""></div>
+      <div id="aiOut" hidden></div>
     </section>
 
     <section class="panel tool-hist">
@@ -404,18 +411,18 @@ details.more>.subbox{margin:0 8px 8px}
       <h2>Rechercher et remplacer <button type="button" class="qh" data-help="g-remplacer" aria-label="Aide : remplacer partout">?</button></h2>
       <label class="f" for="fFind">Rechercher<input type="text" id="fFind" placeholder="ex. un numéro de téléphone"></label>
       <label class="f" for="fRepl">Remplacer par<input type="text" id="fRepl"></label>
-      <label class="chk" for="fAttr"><input type="checkbox" id="fAttr" checked="">Aussi dans les adresses des liens, images et vidéos</label>
+      <label class="chk" for="fAttr"><input type="checkbox" id="fAttr" checked>Aussi dans les adresses des liens, images et vidéos</label>
       <label class="chk" for="fCase"><input type="checkbox" id="fCase">Ignorer les majuscules et minuscules</label>
-      <div class="row"><button id="fCount" class="btn" type="button" disabled="">Trouver</button><button id="fGo" class="btn primary" type="button" disabled="">Remplacer partout</button></div>
-      <div id="fMsg" hidden=""></div>
+      <div class="row"><button id="fCount" class="btn" type="button" disabled>Trouver</button><button id="fGo" class="btn primary" type="button" disabled>Remplacer partout</button></div>
+      <div id="fMsg" hidden></div>
       <div id="fList" class="results"></div>
     </section>
 
     <section class="panel tool-check">
       <h2>Vérifier le site <button type="button" class="qh" data-help="g-verifier" aria-label="Aide : vérifier le site">?</button></h2>
       <p class="hint">Cherche les liens cassés, les images manquantes, trop lourdes ou sans description, et les pages sans titre pour Google.</p>
-      <button id="cGo" class="btn" type="button" disabled="">Lancer la vérification</button>
-      <div id="cMsg" hidden=""></div>
+      <button id="cGo" class="btn" type="button" disabled>Lancer la vérification</button>
+      <div id="cMsg" hidden></div>
       <div id="cList" class="results"></div>
     </section>
     <p class="hint simple-only" style="padding:0 6px">Certains outils sont cachés (historique, recherche, vérification du site, couleurs…). Pour en afficher : bouton <b style="color:#c8443a">🧰 Outils</b>, en haut.</p>
@@ -424,19 +431,19 @@ details.more>.subbox{margin:0 8px 8px}
 
   <div class="stage">
     <div id="drop" class="drop">
-      <div id="hostedBox" class="hosted" hidden=""></div>
+      <div id="hostedBox" class="hosted" hidden></div>
       <div id="mySites" class="mysites"></div>
       <strong>Ou ouvrez un site enregistré sur cet ordinateur : glissez ici un fichier .html, un .zip ou un dossier</strong>
       <div class="row"><button class="btn c-pub" type="button" id="dGhOpen">🌐 Autre site en ligne</button><button class="btn primary" type="button" id="dOpenFile">Ouvrir un fichier</button><button class="btn c-blue" type="button" id="dOpenDir">Ouvrir un dossier</button></div>
       <button class="btn" type="button" id="dHelp" style="background:#f2a65a;border-color:#f2a65a">? Lire le mode d’emploi (3 minutes)</button>
-      <div id="draftBox" hidden=""></div>
-      <div class="recent-home" id="recentHome" hidden=""><h3>Reprendre un site récent</h3><div class="rlist" id="recentList"></div></div>
+      <div id="draftBox" hidden></div>
+      <div class="recent-home" id="recentHome" hidden><h3>Reprendre un site récent</h3><div class="rlist" id="recentList"></div></div>
     </div>
-    <iframe id="frame" title="Site en cours de modification" hidden=""></iframe>
+    <iframe id="frame" title="Site en cours de modification" hidden></iframe>
   </div>
 </div>
 
-<div class="aiov" id="toolsOv" hidden="" role="dialog" aria-modal="true" aria-labelledby="toolsT">
+<div class="aiov" id="toolsOv" hidden role="dialog" aria-modal="true" aria-labelledby="toolsT">
   <div class="aibox">
     <h2 id="toolsT">🧰 Choisir les outils affichés</h2>
     <p class="hint" style="color:var(--txt)">Cochez les outils dont vous vous servez : ils s’affichent dans la colonne de gauche. Les outils de base (corriger un texte, changer une image, liens, photos, blocs, enregistrer) sont toujours là.</p>
@@ -445,8 +452,8 @@ details.more>.subbox{margin:0 8px 8px}
     <div class="row"><button class="btn" type="button" id="toolsAll">Tout cocher</button><button class="btn" type="button" id="toolsMin">L’essentiel seulement</button><button class="btn primary" type="button" id="toolsOk">Fermer</button></div>
   </div>
 </div>
-<div class="aiov" id="pubOv" hidden="" role="dialog" aria-modal="true"><div class="aibox" id="pubBody"></div></div>
-<div class="aiov" id="cropOv" hidden="" role="dialog" aria-modal="true" aria-labelledby="cropT">
+<div class="aiov" id="pubOv" hidden role="dialog" aria-modal="true"><div class="aibox" id="pubBody"></div></div>
+<div class="aiov" id="cropOv" hidden role="dialog" aria-modal="true" aria-labelledby="cropT">
   <div class="aibox crop-box">
     <h2 id="cropT">Recadrer ou tourner la photo</h2>
     <p class="hint" style="color:var(--txt)">Déplacez le cadre clair avec la souris, ou tirez ses coins pour l’agrandir ou le réduire.</p>
@@ -460,7 +467,7 @@ details.more>.subbox{margin:0 8px 8px}
     <div class="row"><button class="btn primary" type="button" id="cropGo">✓ Utiliser cette photo</button><button class="btn" type="button" id="cropNo">Annuler</button></div>
   </div>
 </div>
-<div class="aiov" id="recapOv" hidden="" role="dialog" aria-modal="true" aria-labelledby="recapT">
+<div class="aiov" id="recapOv" hidden role="dialog" aria-modal="true" aria-labelledby="recapT">
   <div class="aibox">
     <h2 id="recapT">Avant d’enregistrer</h2>
     <p class="hint" style="color:var(--txt)">Voici ce qui a été modifié depuis l’ouverture ou le dernier enregistrement :</p>
@@ -470,10 +477,10 @@ details.more>.subbox{margin:0 8px 8px}
     <div class="row"><button class="btn primary" type="button" id="recapGo">✓ Enregistrer</button><button class="btn" type="button" id="recapBack">Revenir aux modifications</button></div>
   </div>
 </div>
-<div class="tour" id="tour" hidden=""><div class="tour-hl" id="tourHl"></div>
+<div class="tour" id="tour" hidden><div class="tour-hl" id="tourHl"></div>
   <div class="tour-bub" id="tourBub" role="dialog" aria-live="polite"><small id="tourN"></small><b id="tourT"></b><p id="tourD"></p>
     <div class="row"><button class="btn primary" type="button" id="tourNext">Suivant →</button><button class="btn" type="button" id="tourSkip">Passer la visite</button></div></div></div>
-<div class="aiov" id="aiSet" hidden="" role="dialog" aria-modal="true" aria-labelledby="aiSetT">
+<div class="aiov" id="aiSet" hidden role="dialog" aria-modal="true" aria-labelledby="aiSetT">
   <div class="aibox">
     <h2 id="aiSetT">Brancher une IA</h2>
     <p class="hint" style="color:var(--txt)">L’assistant propose des textes, corrige les fautes, écrit la description d’une image ou de la page pour Google. Il faut le brancher <b>une seule fois</b> sur cet ordinateur.</p>
@@ -488,11 +495,11 @@ details.more>.subbox{margin:0 8px 8px}
     <details class="more"><summary>Comment obtenir une clé ?</summary><div class="subbox" id="aiHow"></div></details>
     <details class="more"><summary>Réglages avancés</summary><div class="subbox"><label class="f" for="aiModel">Modèle d’IA utilisé<input type="text" id="aiModel" spellcheck="false"></label><p class="hint">Laissez la valeur proposée, sauf si quelqu’un vous a indiqué un autre modèle.</p></div></details>
     <div class="msg" style="text-align:left">🔒 La clé reste <b>uniquement dans ce navigateur</b>, sur cet ordinateur. Elle n’est jamais mise dans le site ni dans le fichier de l’éditeur. Quand vous utilisez l’assistant, le texte concerné est envoyé au service choisi, qui facture quelques centimes par demande.</div>
-    <div id="aiSetMsg" hidden=""></div>
+    <div id="aiSetMsg" hidden></div>
     <div class="row"><button class="btn primary" type="button" id="aiSave">Tester et enregistrer</button><button class="btn" type="button" id="aiForget">Oublier la clé</button><button class="btn" type="button" id="aiClose">Fermer</button></div>
   </div>
 </div>
-<div class="guide" id="guide" hidden="" role="dialog" aria-modal="true" aria-labelledby="guideTitle">
+<div class="guide" id="guide" hidden role="dialog" aria-modal="true" aria-labelledby="guideTitle">
   <div class="guide-box">
     <div class="guide-head"><h2 id="guideTitle">Mode d’emploi de l’éditeur de site</h2><button type="button" class="btn" id="guideClose">Fermer ✕</button></div>
     <div class="guide-body">
@@ -543,12 +550,12 @@ details.more>.subbox{margin:0 8px 8px}
           </ol>
           <p style="margin-top:12px"><b>Quel bouton choisir ?</b></p>
           <table class="keys">
-            <tbody><tr><td><b>Le site est un seul fichier .html</b> (ex. maquettes Tréso-Solution)</td><td><span class="ui">Ouvrir un fichier</span></td></tr>
+            <tr><td><b>Le site est un seul fichier .html</b> (ex. maquettes Tréso-Solution)</td><td><span class="ui">Ouvrir un fichier</span></td></tr>
             <tr><td><b>Le site est un fichier .zip</b> (ex. Magiciens du Cœur, Origamisabelle)</td><td><span class="ui">Ouvrir un fichier</span></td></tr>
             <tr><td><b>Le site est un dossier</b> avec plusieurs pages et des images</td><td><span class="ui w">Ouvrir un dossier</span></td></tr>
             <tr><td><b>Le site est déjà en ligne</b> et réglé pour la publication (plusieurs personnes le modifient)</td><td><span class="ui" style="background:#1f8a4c">🌐 Ouvrir le site en ligne</span></td></tr>
             <tr><td><b>Votre clé GitHub est enregistrée</b> (ou vous utilisez l’éditeur en ligne)</td><td>« Mes sites en ligne », en haut de l’accueil : « ✏️ Modifier »</td></tr>
-          </tbody></table>
+          </table>
           <div class="tip">Conseil : utilisez <b>Google Chrome</b> ou <b>Microsoft Edge</b>. Ils permettent d’enregistrer directement dans vos fichiers.</div>
         </section>
 
@@ -587,10 +594,10 @@ details.more>.subbox{margin:0 8px 8px}
             <li>Pour un autre site, un e-mail ou un téléphone, tapez-le dans la case <b>« Adresse du lien »</b> : l’éditeur ajoute tout seul ce qu’il faut.</li>
           </ol>
           <table class="keys">
-            <tbody><tr><td>Un autre site</td><td><code>www.exemple.fr</code></td></tr>
+            <tr><td>Un autre site</td><td><code>www.exemple.fr</code></td></tr>
             <tr><td>Un e-mail</td><td><code>nom@exemple.fr</code></td></tr>
             <tr><td>Un téléphone</td><td><code>01 39 72 10 10</code></td></tr>
-          </tbody></table>
+          </table>
           <p style="margin-top:14px"><b>Mettre un lien sur quelques mots d’une phrase :</b></p>
           <ol class="how">
             <li>Surlignez les mots dans la page (cliquez-glissez dessus).</li>
@@ -635,13 +642,13 @@ details.more>.subbox{margin:0 8px 8px}
           </ol>
           <p style="margin-top:14px"><b>Ajouter un bloc tout prêt :</b> cliquez dans la page à l’endroit voulu, puis <span class="ui w">➕ Ajouter un bloc tout prêt</span>. Choisissez :</p>
           <table class="keys">
-            <tbody><tr><td>🖼 <b>Texte + photo</b></td><td>Une photo à côté d’un titre et d’un texte (l’un sous l’autre sur téléphone).</td></tr>
+            <tr><td>🖼 <b>Texte + photo</b></td><td>Une photo à côté d’un titre et d’un texte (l’un sous l’autre sur téléphone).</td></tr>
             <tr><td>🔤 <b>Titre + texte</b></td><td>Une nouvelle partie de page.</td></tr>
             <tr><td>💬 <b>Citation</b></td><td>Un témoignage, avec le nom de la personne.</td></tr>
             <tr><td>🕘 <b>Horaires et adresse</b></td><td>Deux colonnes à compléter.</td></tr>
             <tr><td>👉 <b>Bouton</b></td><td>Un bouton coloré, par exemple « Nous contacter ».</td></tr>
             <tr><td>📌 <b>Encadré</b></td><td>Une information importante, mise en valeur.</td></tr>
-          </tbody></table>
+          </table>
           <p class="why" style="margin-top:8px">Les blocs prennent les couleurs du site. Remplacez ensuite les textes d’exemple (« Votre titre », « Écrivez ici… ») : « Vérifier le site » signale ceux qui auraient été oubliés.</p>
           <p style="margin-top:14px"><b>Ajouter une vidéo YouTube :</b></p>
           <ol class="how">
@@ -663,11 +670,11 @@ details.more>.subbox{margin:0 8px 8px}
           <div class="tip">Après chaque suppression, un message apparaît en bas de l’écran avec un bouton <span class="ui">Annuler</span> pendant quelques secondes.</div>
           <p style="margin-top:14px">Les autres réglages sont rangés dans le volet <b>« Plus de réglages »</b>, en bas de « Élément sélectionné » : cliquez dessus pour l’ouvrir.</p><p class="why" style="margin-top:8px">🧰 Si vous ne voyez pas cet outil : bouton <b>🧰 Outils</b> en haut, puis cochez-le.</p>
           <table class="keys">
-            <tbody><tr><td><b>Type de texte</b></td><td>Transformer un paragraphe en titre, ou l’inverse.</td></tr>
+            <tr><td><b>Type de texte</b></td><td>Transformer un paragraphe en titre, ou l’inverse.</td></tr>
             <tr><td><b>Alignement</b></td><td>Texte à gauche, centré, à droite ou justifié.</td></tr>
             <tr><td><b>Couleurs</b></td><td>Couleur du fond et du texte. « D’origine » revient aux couleurs du site.</td></tr>
             <tr><td><b>Taille</b></td><td>Plus étroit, plus large, toute la largeur, ou taille d’origine.</td></tr>
-          </tbody></table>
+          </table>
           <p style="margin-top:14px"><b>Étirer avec la souris :</b> une <b>poignée orange</b> apparaît au coin en bas à droite de l’élément sélectionné. Tirez-la vers la droite pour élargir, vers le bas pour allonger. Double-cliquez dessus pour revenir à la taille prévue.</p>
           <div class="warn2">Après avoir changé une taille, vérifiez le résultat avec le bouton <b>Téléphone</b> en haut : ce qui est beau sur ordinateur doit rester lisible sur un téléphone.</div>
         </section>
@@ -686,9 +693,9 @@ details.more>.subbox{margin:0 8px 8px}
           <h3><span>9</span>Titre, Google, renommer ou supprimer une page</h3>
           <p>La rubrique <b>Page affichée</b>, à gauche, règle la page que vous voyez.</p>
           <table class="keys">
-            <tbody><tr><td><b>Titre de la page</b></td><td>Le texte de l’onglet du navigateur, et le titre bleu dans les résultats Google. Idéal : 50 à 60 caractères, par exemple « Origami Isabelle – Créations en papier à Paris ».</td></tr>
+            <tr><td><b>Titre de la page</b></td><td>Le texte de l’onglet du navigateur, et le titre bleu dans les résultats Google. Idéal : 50 à 60 caractères, par exemple « Origami Isabelle – Créations en papier à Paris ».</td></tr>
             <tr><td><b>Description pour Google</b></td><td>Les deux lignes grises sous le titre dans Google. Une ou deux phrases qui donnent envie de cliquer (120 à 155 caractères).</td></tr>
-          </tbody></table>
+          </table>
           <p class="why" style="margin-top:8px">Le petit compteur passe en rouge si le texte est trop long : Google le couperait.</p>
           <p style="margin-top:14px"><b>Renommer ou supprimer une page</b> (sites de plusieurs pages) : ouvrez le volet <b>« Renommer ou supprimer cette page »</b>.</p>
           <ol class="how">
@@ -793,11 +800,11 @@ details.more>.subbox{margin:0 8px 8px}
             <li>Vous changez d’avis ? <b>Annuler</b> (Ctrl+Z) revient en arrière, comme pour toute modification.</li>
           </ol>
           <table class="keys">
-            <tbody><tr><td><b>Une image</b></td><td>Cliquez dessus, puis « Écrire la description de l’image ».</td></tr>
+            <tr><td><b>Une image</b></td><td>Cliquez dessus, puis « Écrire la description de l’image ».</td></tr>
             <tr><td><b>Un nouveau texte</b></td><td>Cliquez sur le texte après lequel l’ajouter, décrivez le sujet dans « Écrire un nouveau texte », puis « Rédiger ».</td></tr>
             <tr><td><b>Google</b></td><td>« Proposer le titre et la description Google » remplit la rubrique Page affichée.</td></tr>
             <tr><td><b>Conseils</b></td><td>« Relire la page et donner des conseils » liste les fautes et ce qui pourrait manquer à un visiteur.</td></tr>
-          </tbody></table>
+          </table>
           <div class="warn2"><b>Relisez toujours la proposition.</b> L’IA peut se tromper. On lui demande de ne pas inventer de prix, d’horaires ni d’adresses, mais vérifiez quand même ces informations.</div>
           <div class="tip">🔒 <b>Votre clé reste sur cet ordinateur</b>, dans ce navigateur. Elle n’est jamais mise dans le site. Quand vous utilisez l’assistant, seul le texte concerné est envoyé au service choisi. Chaque demande coûte quelques centimes au plus, facturés par ce service. L’assistant a besoin d’internet ; le reste de l’éditeur fonctionne sans.</div>
         </section>
@@ -842,7 +849,8 @@ details.more>.subbox{margin:0 8px 8px}
           </ol>
           <div class="tip"><b>Une clé pour tous vos sites</b> : la clé GitHub se colle <b>une seule fois</b> par ordinateur (écran d’accueil ▸ « 🔑 Afficher mes sites »). Tous les sites auxquels elle donne accès apparaissent alors dans <b>« Mes sites en ligne »</b> : un clic sur « Modifier » ouvre la dernière version en ligne, et « Publier » sait où envoyer. Un nouveau site ? Créez son dépôt sur GitHub et ajoutez-le à votre clé (Edit ▸ Repository access) : il apparaît dans la liste (« ↻ Actualiser »).</div>
           <div class="tip"><b>Statistiques de visites</b> : mode administrateur ▸ « 📊 Statistiques de visites ». Créez une fois un compte gratuit sur goatcounter.com (gratuit pour les associations ; payant pour un site commercial), tapez le code choisi et cliquez sur « Activer sur toutes les pages », puis publiez. Ensuite : Fichier ▸ « 📊 Statistiques de visites » ouvre le tableau de bord. Pas de cookies, donc pas de bandeau à ajouter.</div>
-          <div class="tip"><b>L’éditeur en ligne, une seule adresse pour tous</b> : menu Fichier ▸ <span class="ui" style="background:#1f8a4c">🌍 Mettre l’éditeur en ligne</span>. La première fois, l’éditeur vous fait créer sur GitHub un dépôt nommé <code>editeur</code> (lien prérempli), puis il s’y installe : adresse <code>compte.github.io/editeur</code>. Chaque personne ouvre cette adresse, colle <b>sa</b> clé une fois et voit <b>ses</b> sites. Donnez à chacun une clé limitée à ses sites, pas la vôtre. Nouvelle version de l’éditeur : refaites « Mettre l’éditeur en ligne » depuis celle-ci.</div>
+          <div class="tip"><b>L’éditeur en ligne, une seule adresse pour tous</b> : menu Fichier ▸ <span class="ui" style="background:#1f8a4c">🌍 Mettre l’éditeur en ligne</span>. La première fois, l’éditeur vous fait créer sur GitHub un dépôt nommé <code>editeur</code> (lien prérempli), puis il s’y installe : adresse <code>compte.github.io/editeur</code>. Chaque personne ouvre cette adresse, colle <b>sa</b> clé une fois et voit <b>ses</b> sites. Donnez à chacun une clé limitée à ses sites, pas la vôtre. <b>Mettre à jour l’éditeur en ligne</b> (le plus simple) : ouvrez l’éditeur (en ligne ou sur l’ordinateur), puis <b>ouvrez le fichier de la nouvelle version</b> comme un site (« Ouvrir un fichier », ou glissez-le dans la fenêtre). L’éditeur le reconnaît et propose « 🌍 Mettre l’éditeur en ligne » : un clic, sans chercher le dépôt.</div>
+          <div class="tip"><b>Nettoyer l’historique</b> : mode administrateur ▸ « 🕘 Historique des versions » ▸ « 🧹 Nettoyer l’historique… » garde seulement les 5, 10 ou 20 dernières versions. Impossible à annuler : téléchargez d’abord la sauvegarde .zip proposée.</div>
           <div class="tip"><b>Le site affiche « 404 — There isn’t a GitHub Pages site here » ?</b> L’affichage du site n’est pas encore activé (l’éditeur vous le signale). Sur GitHub, dans le dépôt : <b>Settings</b> ▸ <b>Pages</b> ▸ « Build and deployment » : Source <b>Deploy from a branch</b>, Branch <b>main</b> et <b>/ (root)</b>, puis <b>Save</b>. Le site apparaît une à deux minutes plus tard. L’adresse est rappelée en haut de cette même page (« Your site is live at… »).</div>
           <div class="tip"><b>Votre propre nom de domaine</b> (ex. www.lesmagiciensducoeur.com) : tant que le domaine affiche encore l’ancien site (Wix…), ne réglez rien : le site et l’éditeur sont à l’adresse <code>compte.github.io/depot</code>. Le jour de la bascule : mode administrateur ▸ « Nom de domaine », tapez le domaine et cliquez sur <span class="ui w">Enregistrer le nom de domaine</span>. L’éditeur règle GitHub et affiche les réglages DNS à faire chez le fournisseur du domaine. Le cadenas https s’active tout seul à une publication suivante, quand GitHub a validé le domaine. Après la bascule, l’éditeur en ligne change d’adresse (domaine + <code>/editeur/</code>) : chacun recolle la clé une fois.</div>
           <div class="tip"><b>Un autre site</b> : créez un nouveau dépôt sur GitHub, puis ajoutez-le à votre clé existante (Settings ▸ Developer settings ▸ Fine-grained tokens ▸ votre clé ▸ <b>Edit</b> ▸ Repository access ▸ ajoutez le dépôt ▸ Update). Inutile de créer une autre clé : l’éditeur la retrouve tout seul. Ensuite, comme pour le premier site : mode administrateur ▸ dépôt ▸ « Tester et enregistrer », Publier, puis « Mettre l’éditeur en ligne ».</div>
@@ -852,25 +860,25 @@ details.more>.subbox{margin:0 8px 8px}
         <section class="gsec" id="g-boutons">
           <h3><span>✓</span>Lire la barre du haut</h3>
           <table class="keys">
-            <tbody><tr><td><span class="ui" style="background:#1f8a4c">🌐 Publier</span></td><td>Met le site en ligne (apparaît quand le site a été réglé pour la publication).</td></tr>
+            <tr><td><span class="ui" style="background:#1f8a4c">🌐 Publier</span></td><td>Met le site en ligne (apparaît quand le site a été réglé pour la publication).</td></tr>
             <tr><td><span class="ui" style="background:#2f6fd0">Fichier ▾</span></td><td>Ouvrir un site, sites récents, exporter, remise à zéro, fermer, mode administrateur.</td></tr>
             <tr><td><span class="ui" style="background:#c8443a">🧰 Outils</span></td><td>Choisir, un par un, les outils affichés dans la colonne de gauche.</td></tr>
             <tr><td><span class="ui" style="background:#f2a65a;color:#16304d">Enregistrer</span> orange</td><td>Des modifications attendent d’être enregistrées.</td></tr>
             <tr><td><span class="ui w">Annuler</span> en blanc</td><td>Le bouton est utilisable : il y a quelque chose à annuler, rétablir ou remettre à zéro.</td></tr>
             <tr><td>Bouton grisé en pointillés</td><td>Rien à faire pour l’instant.</td></tr>
-          </tbody></table>
+          </table>
         </section>
 
         <section class="gsec" id="g-raccourcis">
           <h3><span>⌨</span>Raccourcis clavier</h3>
           <table class="keys">
-            <tbody><tr><td><b>Ctrl+S</b></td><td>Enregistrer</td></tr>
+            <tr><td><b>Ctrl+S</b></td><td>Enregistrer</td></tr>
             <tr><td><b>Ctrl+Z</b></td><td>Annuler la dernière modification</td></tr>
             <tr><td><b>Ctrl+Y</b></td><td>Rétablir</td></tr>
             <tr><td><b>Ctrl+B</b> / <b>Ctrl+I</b></td><td>Gras / italique sur les mots surlignés</td></tr>
             <tr><td><b>Ctrl+V</b></td><td>Coller un texte (sans sa mise en forme)</td></tr>
             <tr><td><b>Échap</b></td><td>Fermer ce mode d’emploi</td></tr>
-          </tbody></table>
+          </table>
           <p class="why" style="margin-top:10px">Sur Mac, remplacez Ctrl par la touche ⌘ Cmd.</p>
         </section>
 
@@ -902,14 +910,14 @@ details.more>.subbox{margin:0 8px 8px}
             <dt>Où retrouver ce mode d’emploi ?</dt>
             <dd>Bouton orange <b>? Mode d’emploi</b> en haut, ou les petits <b>?</b> à côté de chaque rubrique de gauche.</dd>
           </dl>
-          <p class="why" style="margin-top:14px">Éditeur de site · version 4.3 · 13 novembre 2026</p>
+          <p class="why" style="margin-top:14px">Éditeur de site · version 4.5 · 13 novembre 2026</p>
         </section>
       </div>
     </div>
   </div>
 </div>
 
-<div id="toast" class="toast" role="status" hidden=""><span id="toastMsg"></span><button type="button" id="toastUndo" class="btn primary">Annuler</button><button type="button" id="toastX" class="tx" aria-label="Fermer">×</button></div>
+<div id="toast" class="toast" role="status" hidden><span id="toastMsg"></span><button type="button" id="toastUndo" class="btn primary">Annuler</button><button type="button" id="toastX" class="tx" aria-label="Fermer">×</button></div>
 <script>
 (function(){
 'use strict';
@@ -983,8 +991,8 @@ function localPath(v, dir){
 }
 
 function setStatus(t, d){ var s = $('status'); s.textContent = t; s.className = 'status' + (d ? ' dirty' : ''); }
-function markDirty(){ dirty = true; document.title = '• Éditeur de site v4.3'; setStatus((site ? site.name : '') + ' · modifications non enregistrées', true); if ($('bSave')) $('bSave').classList.add('lit'); }
-function markClean(msg){ dirty = false; savedUndoLen = undo.length; document.title = 'Éditeur de site v4.3'; setStatus(msg, false); if ($('bSave')) $('bSave').classList.remove('lit'); }
+function markDirty(){ dirty = true; document.title = '• Éditeur de site v4.5'; setStatus((site ? site.name : '') + ' · modifications non enregistrées', true); if ($('bSave')) $('bSave').classList.add('lit'); }
+function markClean(msg){ dirty = false; savedUndoLen = undo.length; document.title = 'Éditeur de site v4.5'; setStatus(msg, false); if ($('bSave')) $('bSave').classList.remove('lit'); }
 function refreshButtons(){
   var on = !!site;
   ['bSave','npGo','fCount','fGo','bReset','bClose','cGo'].forEach(function(id){ $(id).disabled = !on; });
@@ -1056,7 +1064,18 @@ function makeZip(entries){
 
 /* ================= ouverture ================= */
 function confirmLeave(){ return !dirty || window.confirm('Des modifications ne sont pas enregistrées. Continuer quand même ?'); }
+function isEditorSource(t){ return /<title>Éditeur de site v[\d.]+<\/title>/.test(t || '') && (t || '').indexOf('function edCentral') > 0; }
+function edOfferSelf(t){
+  /* on a ouvert le fichier de l'éditeur lui-même : on propose de le mettre en ligne pour tout le monde */
+  var v = (/<title>Éditeur de site (v[\d.]+)<\/title>/.exec(t) || [])[1] || '';
+  pubShow('<h2>🌍 C’est l’Éditeur de site ' + esc(v) + '</h2>' +
+    '<p class="hint" style="color:var(--txt)">Ce fichier n’est pas un site : c’est l’éditeur lui-même. Pour que tout le monde ait cette version sur internet (à l’adresse de l’éditeur en ligne), cliquez sur le bouton. Rien à chercher : l’éditeur sait où l’envoyer.</p>' +
+    '<div class="row"><button class="btn c-pub" type="button" id="eoGo">🌍 Mettre l’éditeur ' + esc(v) + ' en ligne</button><button class="btn" type="button" id="eoNo">Annuler</button></div>');
+  $('eoNo').onclick = pubClose;
+  $('eoGo').onclick = function(){ edCentral(t); };
+}
 function startSite(s){
+  if (s && s.mode === 'single' && s.pages && s.files[s.pages[0]] && isEditorSource(s.files[s.pages[0]].text)) { edOfferSelf(s.files[s.pages[0]].text); return; }
   site = s; undo = []; redo = []; sel = null; curSub = '';
   Object.keys(blobs).forEach(function(k){ URL.revokeObjectURL(blobs[k]); }); blobs = {};
   site.pages.sort(function(a, b){ var ia = /(^|\/)index\.html?$/i.test(a) ? 0 : 1, ib = /(^|\/)index\.html?$/i.test(b) ? 0 : 1; return ia - ib || a.split('/').length - b.split('/').length || a.localeCompare(b); });
@@ -3177,7 +3196,7 @@ function pubSetToken(c, t){
     return true;
   } catch (e) { return false; }
 }
-function pubRefresh(){ var c = site && pubCfg(); if ($('bStats')) $('bStats').hidden = !(site && statsCode()); $('bPub').hidden = !site; $('bPub').disabled = !site; $('bVersions').hidden = !c; $('bVersions').disabled = !c; }
+function pubRefresh(){ siteLinkRefresh(); var c = site && pubCfg(); if ($('bStats')) $('bStats').hidden = !(site && statsCode()); $('bPub').hidden = !site; $('bPub').disabled = !site; $('bVersions').hidden = !c; $('bVersions').disabled = !c; }
 /* ================= une seule clé, tous mes sites ================= */
 var KEY_G = 'editeur_site_cle', MS_KEY = 'editeur_site_messites';
 function keyGet(){
@@ -3191,12 +3210,31 @@ function keyGet(){
   } catch (e) { return ''; }
 }
 function keySet(t){ try { if (t) localStorage.setItem(KEY_G, t); else { localStorage.removeItem(KEY_G); localStorage.removeItem(MS_KEY); } } catch (e) {} }
+var URL_KEY = 'editeur_site_urls';
+function urlCache(){ try { return JSON.parse(localStorage.getItem(URL_KEY) || '{}') || {}; } catch (e) { return {}; } }
+function urlSet(c, u){ if (!u) return; var o = urlCache(); o[(c.owner + '/' + c.repo).toLowerCase()] = u; try { localStorage.setItem(URL_KEY, JSON.stringify(o)); } catch (e) {} }
+var linkAsked = {};
+function siteLinkRefresh(){
+  /* l'adresse du site en ligne, en clair dans la barre du haut */
+  var a = $('siteLink'); if (!a) return;
+  var c = site && pubCfg();
+  if (!c) { a.hidden = true; return; }
+  var k = (c.owner + '/' + c.repo).toLowerCase(), u = urlCache()[k] || siteHome(c);
+  a.href = u; a.textContent = '🔗 ' + u.replace(/^https?:\/\//, '').replace(/\/$/, ''); a.hidden = false;
+  var tok = pubToken(c);
+  if (tok && !linkAsked[k] && navigator.onLine !== false) {
+    linkAsked[k] = 1;
+    gh(c, tok, 'GET', '/repos/' + c.owner + '/' + c.repo + '/pages').then(function(r){ if (r.ok && r.body && r.body.html_url) { urlSet(c, r.body.html_url); siteLinkRefresh(); } }, function(){});
+  }
+}
 function prettyName(r){ return r.replace(/[-_]+/g, ' ').replace(/^./, function(x){ return x.toUpperCase(); }); }
 function msTitle(x){
   var e = enligneAll().filter(function(y){ return (y.owner + '/' + y.repo).toLowerCase() === (x.owner + '/' + x.repo).toLowerCase(); })[0];
   return (e && e.title) || x.title || prettyName(x.repo);
 }
 function msAddr(x){
+  var cu = urlCache()[(x.owner + '/' + x.repo).toLowerCase()];
+  if (cu) return cu.replace(/^https?:\/\//, '').replace(/\/$/, '');
   if (x.home) return x.home.replace(/^https?:\/\//, '').replace(/\/$/, '');
   if (x.pages === undefined) return x.owner + '/' + x.repo;
   return x.pages ? (x.owner.toLowerCase() + '.github.io/' + x.repo) : 'pas encore en ligne';
@@ -3207,7 +3245,9 @@ function mySitesLoad(tok){
   var c0 = {owner:'', repo:''};
   return gh(c0, tok, 'GET', '/user/repos?per_page=100&sort=pushed').then(function(r){
     if (r.status === 401) throw new Error('La clé GitHub est refusée ou a expiré : collez une nouvelle clé.');
-    var list = (ghOk(c0, r) || []).filter(function(x){ return !x.archived && !(x.permissions && x.permissions.push === false) && x.name.toLowerCase() !== 'editeur'; })
+    var raw = ghOk(c0, r) || [], edr = raw.filter(function(x){ return x.name.toLowerCase() === 'editeur'; })[0];
+    try { if (edr) localStorage.setItem('editeur_site_edrepo', JSON.stringify({owner:edr.owner.login, branch:edr.default_branch || 'main', pages:!!edr.has_pages})); else localStorage.removeItem('editeur_site_edrepo'); } catch (e) {}
+    var list = raw.filter(function(x){ return !x.archived && !(x.permissions && x.permissions.push === false) && x.name.toLowerCase() !== 'editeur'; })
       .map(function(x){ return {owner:x.owner.login, repo:x.name, branch:x.default_branch || 'main', pages:!!x.has_pages, home:x.homepage || '', priv:!!x.private}; });
     list.sort(function(a, b){ return (b.pages ? 1 : 0) - (a.pages ? 1 : 0); });
     try { localStorage.setItem(MS_KEY, JSON.stringify({at:Date.now(), list:list})); } catch (e) {}
@@ -3242,6 +3282,21 @@ function siteChoices(){
     return scoreRepos(l);
   });
 }
+function edStatus(){
+  /* l'éditeur en ligne : son adresse, sa version, et la mise à jour si celui-ci est plus récent */
+  var box = $('msEd'), tok = keyGet(), e = null; if (!box || !tok) return;
+  try { e = JSON.parse(localStorage.getItem('editeur_site_edrepo') || 'null'); } catch (x) {}
+  if (!e) { box.innerHTML = '🌍 Pas encore d’éditeur en ligne pour tout le monde. <button type="button" class="lnk" id="msEdGo">Le mettre en ligne…</button>'; $('msEdGo').onclick = edCentral; return; }
+  var c = ghCfgOf(e.owner, 'editeur', e.branch), url = 'https://' + e.owner.toLowerCase() + '.github.io/editeur/';
+  gh(c, tok, 'GET', '/repos/' + e.owner + '/editeur/commits?per_page=1').then(function(r){
+    var msg = r.ok && r.body && r.body[0] ? r.body[0].commit.message : '', v = (/(v\d+(?:\.\d+)+)/.exec(msg) || [])[1] || '';
+    if (!$('msEd')) return;
+    var newer = v && MY_VER && verCmp(MY_VER, v) > 0;
+    box.innerHTML = '🌍 Éditeur en ligne : <a href="' + url + '" target="_blank" rel="noopener">' + esc(url.replace(/^https:\/\//, '').replace(/\/$/, '')) + '</a>' + (v ? ' · version <b>' + esc(v) + '</b>' : '') +
+      (newer ? ' · <button type="button" class="lnk" id="msEdGo"><b>Mettre à jour avec cette version (' + esc(MY_VER) + ')</b></button>' : ' · <button type="button" class="lnk" id="msEdGo">Mettre une nouvelle version en ligne…</button>');
+    $('msEdGo').onclick = edCentral;
+  }, function(){});
+}
 function renderMySites(){
   var box = $('mySites'); if (!box) return;
   var tok = keyGet(), central = document.querySelector('meta[name="editeur-central"]');
@@ -3255,10 +3310,17 @@ function renderMySites(){
     if (!$('mySites')) return;
     box.innerHTML = '<h3>🌐 Mes sites en ligne</h3>' + (err ? '<div class="msg warn">' + esc(err) + '</div>' : '') +
       (list && list.length ? '<div class="mslist">' + list.map(function(x, i){
-        return '<button type="button" class="mscard" data-ms="' + i + '"><b>' + esc(msTitle(x)) + '</b><small>' + esc(msAddr(x)) + '</small><span class="go">✏️ Modifier</span></button>'; }).join('') + '</div>'
+        var ad = msAddr(x), live = x.pages !== false && ad !== 'pas encore en ligne';
+        return '<div class="mscard" data-ms="' + i + '" role="button" tabindex="0"><b>' + esc(msTitle(x)) + '</b>' +
+          (live ? '<a class="visit" href="https://' + esc(ad) + '/" target="_blank" rel="noopener" title="Voir le site en ligne">🔗 ' + esc(ad) + '</a>' : '<small>' + esc(ad) + '</small>') +
+          '<span class="go">✏️ Modifier</span></div>'; }).join('') + '</div>'
         : (list ? '<p class="hint">Cette clé ne donne accès à aucun site. Sur GitHub, ajoutez vos dépôts à la clé (Edit ▸ Repository access), puis « Actualiser ».</p>' : '<p class="hint">Chargement de vos sites…</p>')) +
-      '<p class="msfoot"><button type="button" class="lnk" id="msRef">↻ Actualiser</button> · <button type="button" class="lnk" id="msChg">🔑 Changer de clé</button></p>';
-    [].forEach.call(box.querySelectorAll('[data-ms]'), function(b){ b.onclick = function(){ var x = list[+b.getAttribute('data-ms')]; if (confirmLeave()) ghStart(ghCfgOf(x.owner, x.repo, x.branch)); }; });
+      '<p class="msfoot"><button type="button" class="lnk" id="msRef">↻ Actualiser</button> · <button type="button" class="lnk" id="msChg">🔑 Changer de clé</button></p><p class="msfoot" id="msEd"></p>';
+    edStatus();
+    [].forEach.call(box.querySelectorAll('[data-ms]'), function(b){
+      function go(e){ if (e.target.closest && e.target.closest('a')) return; var x = list[+b.getAttribute('data-ms')]; if (confirmLeave()) ghStart(ghCfgOf(x.owner, x.repo, x.branch)); }
+      b.onclick = go; b.onkeydown = function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(e); } };
+    });
     $('msRef').onclick = function(){ draw(list); mySitesLoad(keyGet()).then(function(l){ draw(l); }, function(e){ draw(list, e.message); }); };
     $('msChg').onclick = function(){ keyAsk(null, 'Collez la nouvelle clé.'); };
   }
@@ -3266,9 +3328,10 @@ function renderMySites(){
   mySitesLoad(tok).then(function(l){ draw(l); }, function(e){ draw(cached || [], e.message); });
 }
 /* ================= l'éditeur en ligne, une seule adresse pour tous les sites ================= */
-function edCentral(){
+function edCentral(given){
+  if (typeof given !== 'string') given = '';
   var tok = keyGet();
-  if (!tok) { keyAsk(function(){ edCentral(); }); return; }
+  if (!tok) { keyAsk(function(){ edCentral(given); }, 'Pour mettre l’éditeur en ligne, collez votre clé GitHub.'); return; }
   var login = '', c;
   pubShow('<h2>🌍 Mettre l’éditeur en ligne</h2><p class="hint" id="pubStep" style="color:var(--txt)">Vérification auprès de GitHub…</p>');
   gh({owner:'', repo:''}, tok, 'GET', '/user').then(function(r){
@@ -3277,12 +3340,12 @@ function edCentral(){
     c = ghCfgOf(login, 'editeur', 'main');
     return gh(c, tok, 'GET', '/repos/' + login + '/editeur');
   }).then(function(r){
-    if (r.status === 404) { edNeedRepo(login); return null; }
+    if (r.status === 404) { edPending = given; edNeedRepo(login); return null; }
     if (r.status === 403) throw new Error('Votre clé voit le dépôt « editeur » mais n’a pas le droit d’y écrire. Sur GitHub : votre clé ▸ Edit ▸ Permissions : « Contents » et « Pages » en « Read and write », puis Update.');
     if (!r.ok) throw new Error(ghErr(r.status, r.body, c));
     if (r.body.permissions && r.body.permissions.push === false) throw new Error(ghErr(403, r.body, c));
     c.branch = r.body.default_branch || 'main';
-    return edSource().then(function(src){
+    return (given ? Promise.resolve(given) : edSource()).then(function(src){
       var ver = (/<title>Éditeur de site (v[\d.]+)<\/title>/.exec(src) || [])[1] || '';
       src = src.replace(/<meta name="(editeur-depot|editeur-titre|editeur-central|robots)"[^>]*>\n?/gi, '').replace(/<head[^>]*>/i, function(h){
         return h + '\n\n';
@@ -3310,6 +3373,7 @@ function edPut(c, tok, path, bytes, msg, onlyIfMissing){
     return gh(c, tok, 'PUT', url, body).then(function(x){ ghOk(c, x); });
   });
 }
+var edPending = '';
 function edNeedRepo(login){
   /* le dépôt « editeur » n'existe pas, ou la clé ne le voit pas (GitHub répond pareil dans les deux cas) */
   var who = esc(login);
@@ -3327,7 +3391,7 @@ function edNeedRepo(login){
     '<li>Tout en bas, cliquez sur <b>Update</b>. La clé ne change pas : rien à recoller.</li></ol>' +
     '<div class="msg">Si votre clé est réglée sur <b>All repositories</b>, l’étape B n’est pas nécessaire.</div>' +
     '<div class="row"><button class="btn c-pub" type="button" id="edAgain">C’est fait, continuer</button><button class="btn" type="button" id="edX">Annuler</button></div>');
-  $('edAgain').onclick = edCentral; $('edX').onclick = pubClose;
+  $('edAgain').onclick = function(){ edCentral(edPending); }; $('edX').onclick = pubClose;
 }
 function edDone(c, u){
   var url = (u && u.ok && u.url) || ('https://' + c.owner.toLowerCase() + '.github.io/editeur/');
@@ -3564,6 +3628,7 @@ function pagesUrl(c, tok, create){
   /* GitHub Pages doit être activé pour que le site s'affiche : on l'active si besoin, et on le dit franchement si c'est impossible */
   return gh(c, tok, 'GET', path).then(function(r){
     if (r.ok) {
+      urlSet(c, r.body && r.body.html_url);
       /* domaine validé par GitHub : on active le cadenas https dès que possible */
       if (r.body && r.body.cname && r.body.https_enforced === false) gh(c, tok, 'PUT', path, {cname:r.body.cname, https_enforced:true}).catch(function(){});
       return {url:r.body.html_url || guess, ok:true};
@@ -3931,6 +3996,73 @@ function ghVersions(){
     });
   });
 }
+/* ================= nettoyage de l'historique : garder les N dernières versions ================= */
+function ghPruneDialog(){
+  var c = site && pubCfg(); if (!c) return;
+  withToken(c, function(tok){
+    pubShow('<h2>🧹 Nettoyer l’historique</h2><p class="hint">Comptage des versions…</p>');
+    gh(c, tok, 'GET', '/repos/' + c.owner + '/' + c.repo + '/commits?sha=' + encodeURIComponent(c.branch) + '&per_page=100').then(function(r){
+      var list = ghOk(c, r) || [], n = list.length, head = list[0] && list[0].sha;
+      var zip = 'https://github.com/' + encodeURIComponent(c.owner) + '/' + encodeURIComponent(c.repo) + '/archive/' + head + '.zip';
+      pubShow('<h2>🧹 Nettoyer l’historique de « ' + esc(msTitle(c)) + ' »</h2>' +
+        '<p class="hint" style="color:var(--txt)">Ce site a <b>' + (n >= 100 ? '100 versions ou plus' : n + ' version' + (n > 1 ? 's' : '')) + '</b> publiées. Le nettoyage garde seulement les plus récentes et <b>supprime définitivement</b> les autres de la liste « Versions publiées ». Le site en ligne ne change pas.</p>' +
+        '<label class="f" for="prN">Versions à garder<select id="prN" style="padding:8px;border:1px solid #cfc9bc;border-radius:8px;font-size:14px"><option value="5">les 5 dernières</option><option value="10" selected>les 10 dernières</option><option value="20">les 20 dernières</option></select></label>' +
+        '<div class="danger"><p class="hint" style="color:var(--txt);margin:0">⚠️ <b>Impossible à annuler.</b> Une erreur ancienne passée inaperçue ne pourra plus être rattrapée. Avant de continuer, téléchargez une sauvegarde de la version actuelle : <a class="btn" href="' + esc(zip) + '" target="_blank" rel="noopener" id="prZip">⬇ Sauvegarde .zip</a></p></div>' +
+        '<p class="hint"><label style="display:flex;gap:8px;align-items:flex-start;cursor:pointer"><input type="checkbox" id="prOk"> <span>J’ai compris : les versions plus anciennes seront supprimées définitivement.</span></label></p>' +
+        '<div id="prMsg" hidden></div>' +
+        '<div class="row"><button class="btn" type="button" id="prGo" disabled style="background:var(--danger,#c0392b);color:#fff;border-color:var(--danger,#c0392b)">🧹 Nettoyer</button><button class="btn" type="button" id="prNo">Annuler</button></div>');
+      $('prNo').onclick = pubClose;
+      $('prOk').onchange = function(){ $('prGo').disabled = !this.checked; };
+      $('prGo').onclick = function(){
+        var keep = +$('prN').value, m = $('prMsg');
+        if (n <= keep) { m.hidden = false; m.className = 'msg'; m.textContent = 'Il n’y a que ' + n + ' version' + (n > 1 ? 's' : '') + ' : rien à supprimer.'; return; }
+        [].forEach.call(document.querySelectorAll('#pubBody .btn, #pubBody select, #pubBody input'), function(b){ b.disabled = true; });
+        m.hidden = false; m.className = 'msg'; m.textContent = 'Nettoyage en cours…';
+        pubBusy = true;
+        ghPrune(c, tok, list.slice(0, keep), function(t){ m.textContent = t; }).then(function(){
+          pubBusy = false;
+          pubShow('<h2>✓ Historique nettoyé</h2><p class="hint" style="color:var(--txt)">Seules les ' + keep + ' dernières versions sont gardées. Le site en ligne n’a pas changé.</p><div class="row"><button class="btn primary" type="button" id="prX">Fermer</button></div>');
+          $('prX').onclick = pubClose;
+        }, function(e){
+          pubBusy = false; m.className = 'msg warn'; m.textContent = e.message;
+          [].forEach.call(document.querySelectorAll('#pubBody .btn, #pubBody select'), function(b){ b.disabled = false; });
+        });
+      };
+    }).catch(function(e){
+      pubShow('<h2>🧹 Nettoyer l’historique</h2><div class="msg warn">' + esc(e.message) + '</div><div class="row"><button class="btn" type="button" id="prX">Fermer</button></div>');
+      $('prX').onclick = pubClose;
+    });
+  });
+}
+function ghPrune(c, tok, kept, step){
+  /* recrée les versions gardées (même contenu, mêmes dates), la plus ancienne sans parent, puis remplace la branche */
+  var path = '/repos/' + c.owner + '/' + c.repo, head = kept[0].sha, map = {}, prev = null;
+  var order = kept.slice().reverse();
+  return order.reduce(function(pr, x, i){
+    return pr.then(function(){
+      step('Nettoyage en cours… ' + (i + 1) + ' sur ' + order.length);
+      return gh(c, tok, 'GET', path + '/git/commits/' + x.sha).then(function(r){
+        var cm = ghOk(c, r), body = {message:cm.message, tree:cm.tree.sha, parents:prev ? [prev] : []};
+        if (cm.author && cm.author.email) body.author = {name:cm.author.name, email:cm.author.email, date:cm.author.date};
+        if (cm.committer && cm.committer.email) body.committer = {name:cm.committer.name, email:cm.committer.email, date:cm.committer.date};
+        return gh(c, tok, 'POST', path + '/git/commits', body);
+      }).then(function(r){ prev = ghOk(c, r).sha; map[x.sha] = prev; });
+    });
+  }, Promise.resolve()).then(function(){
+    /* personne n'a publié pendant le nettoyage ? */
+    return gh(c, tok, 'GET', path + '/git/ref/heads/' + encodeURIComponent(c.branch));
+  }).then(function(r){
+    if (ghOk(c, r).object.sha !== head) throw new Error('Quelqu’un vient de publier ce site : rien n’a été supprimé. Recommencez dans un instant.');
+    return gh(c, tok, 'PATCH', path + '/git/refs/heads/' + encodeURIComponent(c.branch), {sha:prev, force:true});
+  }).then(function(r){
+    ghOk(c, r);
+    /* les copies qui reposaient sur une version gardée reposent sur sa copie nettoyée */
+    if (site.gh && map[site.gh.base]) site.gh.base = map[site.gh.base];
+    if (site.memBase && map[site.memBase.ref]) site.memBase.ref = map[site.memBase.ref];
+    var o = baseAll(c), ch = false; Object.keys(o).forEach(function(k){ if (map[o[k]]) { o[k] = map[o[k]]; ch = true; } });
+    if (ch) try { localStorage.setItem(c.key + '_base', JSON.stringify(o)); } catch (e) {}
+  });
+}
 function ghRestore(c, tok, sha, when){
   /* nouvelle mise en ligne dont le contenu est celui de l'ancienne version (on garde l'adresse du site : CNAME) */
   var path = '/repos/' + c.owner + '/' + c.repo, cur, oldTree, keep = [];
@@ -4125,6 +4257,7 @@ function pubAdminHTML(){
       '<p class="hint">Laissez <b>vide</b> tant que votre nom de domaine affiche encore l’ancien site (Wix…) : le site reste à l’adresse github.io. Le jour de la bascule, tapez le domaine (ex. www.lesmagiciensducoeur.com) et cliquez sur le bouton : l’éditeur règle GitHub et vous donne les réglages DNS à faire.</p>' +
       '<button class="btn" type="button" id="adDomGo">Enregistrer le nom de domaine</button><div id="adDomMsg" hidden></div>' : '') +
     '<hr class="sp"><span class="lbl">🌍 L’éditeur en ligne</span><p class="hint">Une seule adresse pour tous vos sites, pour vous et les autres : menu Fichier ▸ <b>Mettre l’éditeur en ligne</b>.</p><button class="btn" type="button" id="adEdCentral">🌍 Mettre l’éditeur en ligne</button>' +
+    (c ? '<hr class="sp"><span class="lbl">🕘 Historique des versions</span><p class="hint">Toutes les publications sont gardées par GitHub (gratuit, sans limite). Pour alléger la liste « Versions publiées » :</p><button class="btn" type="button" id="adPrune">🧹 Nettoyer l’historique…</button>' : '') +
     (c ? '<hr class="sp"><button class="btn" type="button" id="adPubOff">Ne plus associer ce site à un site en ligne</button>' : '') +
     '<div id="adPubMsg" hidden></div>' + statsHTML() + '<hr class="sp">';
 }
@@ -4152,6 +4285,7 @@ function bindPubAdmin(){
   };
   if ($('adEdGo')) $('adEdGo').onclick = edPublish;
   $('adEdCentral').onclick = edCentral;
+  if ($('adPrune')) $('adPrune').onclick = ghPruneDialog;
   bindStats();
   $('adPubChange').onclick = function(){ if (keyGet()) pubLink({only:true}); else keyAsk(function(){ pubLink({only:true}); }); };
   $('adKey').onclick = function(){ keyAsk(function(){ renderAdmin(); }); };
@@ -4574,7 +4708,7 @@ $('bClose').onclick = function(){
   Object.keys(blobs).forEach(function(k){ URL.revokeObjectURL(blobs[k]); }); blobs = {};
   frame.onload = null; frame.hidden = true; frame.removeAttribute('srcdoc'); $('drop').hidden = false;
   $('pages').innerHTML = '<p class="hint">Ouvrez un site pour voir ses pages.</p>'; $('siteName').hidden = true;
-  $('draftOffer').hidden = true; $('ghOffer').hidden = true; $('fList').innerHTML = ''; $('cList').innerHTML = ''; $('fMsg').hidden = true; $('cMsg').hidden = true;
+  $('draftOffer').hidden = true; $('ghOffer').hidden = true; setTimeout(renderMySites, 0); $('fList').innerHTML = ''; $('cList').innerHTML = ''; $('fMsg').hidden = true; $('cMsg').hidden = true;
   if (adminMode) setAdmin(false, true);
   renderProps(); renderPageInfo(); refreshButtons(); renderRecent(); showDraft();
   markClean('Aucun site ouvert');
@@ -4583,19 +4717,28 @@ refreshButtons(); showDraft(); renderRecent();
 
 /* ================= l'éditeur lui-même en ligne (adresse du site + /editeur/) ================= */
 function edUrl(c, siteUrl){ return (siteUrl || siteHome(c)).replace(/\/?$/, '/') + 'editeur/'; }
+var MY_VER = ((/v[\d.]+/.exec((document.querySelector('title') || {}).textContent || '') || [''])[0]);
+function verNum(v){ return String(v || '').replace(/^v/, '').split('.').map(function(x){ return +x || 0; }); }
+function verCmp(a, b){ a = verNum(a); b = verNum(b); for (var i = 0; i < Math.max(a.length, b.length); i++) { var d = (a[i] || 0) - (b[i] || 0); if (d) return d; } return 0; }
 function edSource(){
-  /* le texte complet de l'éditeur : lu à son adresse s'il est déjà en ligne, sinon on demande le fichier */
-  if (/^https?:$/.test(location.protocol)) return fetch(location.href.split('#')[0], {cache:'no-store'}).then(function(r){ if (!r.ok) throw new Error('Impossible de relire l’éditeur.'); return r.text(); });
-  var nom = ''; try { nom = decodeURIComponent(location.pathname.split('/').pop()); } catch (e) {}
+  /* le texte complet de l'éditeur à mettre en ligne : un fichier choisi sur l'ordinateur (une nouvelle version), ou celui-ci s'il est déjà en ligne */
+  var hosted = /^https?:$/.test(location.protocol), nom = '';
+  try { nom = decodeURIComponent(location.pathname.split('/').pop()); } catch (e) {}
   return new Promise(function(res, rej){
-    pubShow('<h2>🌍 Mettre l’éditeur en ligne</h2><p class="hint" style="color:var(--txt)">Choisissez sur votre ordinateur le fichier de l’éditeur que vous utilisez en ce moment' + (nom ? ' : <b>' + esc(nom) + '</b>' : '') + '. C’est lui qui sera mis en ligne.</p>' +
-      '<div class="row"><button class="btn primary" type="button" id="edPick">Choisir le fichier de l’éditeur</button><button class="btn" type="button" id="edNo">Annuler</button></div><input type="file" id="edFile" accept=".html,.htm,text/html" hidden><div id="edMsg" hidden></div>');
+    pubShow('<h2>🌍 Mettre l’éditeur en ligne</h2>' +
+      '<p class="hint" style="color:var(--txt)">Choisissez sur votre ordinateur le <b>fichier de l’éditeur à mettre en ligne</b>, par exemple la nouvelle version que vous avez reçue (<code>editeur_site_v….html</code>, souvent dans Téléchargements)' + (!hosted && nom ? '. C’est sans doute celui ouvert en ce moment : <b>' + esc(nom) + '</b>' : '') + '.</p>' +
+      '<div class="row"><button class="btn primary" type="button" id="edPick">Choisir le fichier de l’éditeur</button>' +
+      (hosted ? '<button class="btn" type="button" id="edSelf">Remettre cette version (' + esc(MY_VER) + ')</button>' : '') +
+      '<button class="btn" type="button" id="edNo">Annuler</button></div><input type="file" id="edFile" accept=".html,.htm,text/html" hidden><div id="edMsg" hidden></div>');
     $('edPick').onclick = function(){ $('edFile').click(); };
     $('edNo').onclick = function(){ pubClose(); var e = new Error('annulé'); e.abort = true; rej(e); };
+    if ($('edSelf')) $('edSelf').onclick = function(){ fetch(location.href.split('#')[0], {cache:'no-store'}).then(function(r){ if (!r.ok) throw new Error('Impossible de relire l’éditeur.'); return r.text(); }).then(res, rej); };
     $('edFile').onchange = function(){
       var f = this.files[0]; if (!f) return;
       f.text().then(function(t){
-        if (!/<title>Éditeur de site v[\d.]+<\/title>/.test(t) || t.indexOf('<script>') < 0) { var m = $('edMsg'); m.hidden = false; m.className = 'msg warn'; m.textContent = 'Ce fichier n’est pas l’Éditeur de site. Choisissez le fichier editeur_site_v… .html.'; return; }
+        var m = $('edMsg'), v = (/<title>Éditeur de site (v[\d.]+)<\/title>/.exec(t) || [])[1];
+        if (!v || t.indexOf('<script>') < 0) { m.hidden = false; m.className = 'msg warn'; m.textContent = 'Ce fichier n’est pas l’Éditeur de site. Choisissez le fichier editeur_site_v… .html.'; return; }
+        if (hosted && verCmp(v, MY_VER) < 0 && !window.confirm('Le fichier choisi est une version plus ancienne (' + v + ') que celle en ligne (' + MY_VER + ').\n\nLa mettre en ligne quand même ?')) return;
         res(t);
       });
     };
@@ -4649,6 +4792,5 @@ renderMySites();
 
 })();
 </script>
-
-
-</body></html>
+</body>
+</html>
