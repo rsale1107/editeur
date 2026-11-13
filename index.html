@@ -2,7 +2,7 @@
 <html lang="fr"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Éditeur de site v4.2</title>
+<title>Éditeur de site v4.3</title>
 <style>
 /* Outil de bureau : barre d'actions en haut, réglages à gauche, page modifiable à droite */
 :root{
@@ -315,7 +315,7 @@ details.more>.subbox{margin:0 8px 8px}
 <meta name="editeur-publication" content="rsale1107/editeur"></head>
 <body>
 <header class="bar">
-  <div class="brand">Éditeur de site <span>v4.2</span></div>
+  <div class="brand">Éditeur de site <span>v4.3</span></div>
   <div class="fm-wrap">
     <button id="bFile" class="btn c-blue" type="button" aria-expanded="false" aria-controls="fileMenu">Fichier ▾</button>
     <div id="fileMenu" class="fmenu" hidden="">
@@ -900,7 +900,7 @@ details.more>.subbox{margin:0 8px 8px}
             <dt>Où retrouver ce mode d’emploi ?</dt>
             <dd>Bouton orange <b>? Mode d’emploi</b> en haut, ou les petits <b>?</b> à côté de chaque rubrique de gauche.</dd>
           </dl>
-          <p class="why" style="margin-top:14px">Éditeur de site · version 4.2 · 13 novembre 2026</p>
+          <p class="why" style="margin-top:14px">Éditeur de site · version 4.3 · 13 novembre 2026</p>
         </section>
       </div>
     </div>
@@ -981,8 +981,8 @@ function localPath(v, dir){
 }
 
 function setStatus(t, d){ var s = $('status'); s.textContent = t; s.className = 'status' + (d ? ' dirty' : ''); }
-function markDirty(){ dirty = true; document.title = '• Éditeur de site v4.2'; setStatus((site ? site.name : '') + ' · modifications non enregistrées', true); if ($('bSave')) $('bSave').classList.add('lit'); }
-function markClean(msg){ dirty = false; savedUndoLen = undo.length; document.title = 'Éditeur de site v4.2'; setStatus(msg, false); if ($('bSave')) $('bSave').classList.remove('lit'); }
+function markDirty(){ dirty = true; document.title = '• Éditeur de site v4.3'; setStatus((site ? site.name : '') + ' · modifications non enregistrées', true); if ($('bSave')) $('bSave').classList.add('lit'); }
+function markClean(msg){ dirty = false; savedUndoLen = undo.length; document.title = 'Éditeur de site v4.3'; setStatus(msg, false); if ($('bSave')) $('bSave').classList.remove('lit'); }
 function refreshButtons(){
   var on = !!site;
   ['bSave','npGo','fCount','fGo','bReset','bClose','cGo'].forEach(function(id){ $(id).disabled = !on; });
@@ -4113,8 +4113,8 @@ function pubAdminHTML(){
   return '<span class="lbl">🌐 Site en ligne</span>' +
     (c ? '<p class="hint" style="color:var(--txt)">Ce site met à jour <b>' + esc(msTitle(c)) + '</b> <small>(' + esc(c.owner + '/' + c.repo) + ')</small>.</p><button class="btn" type="button" id="adPubChange">Choisir un autre site en ligne</button>'
        : '<p class="hint" style="color:var(--txt)">Ce site n’est encore associé à aucun site en ligne.</p><button class="btn c-pub" type="button" id="adPubChange">Choisir le site en ligne</button>') +
-    '<p class="hint">🔑 ' + (k ? 'Clé GitHub enregistrée sur cet ordinateur ✓' : 'Aucune clé GitHub sur cet ordinateur.') + ' <button type="button" class="lnk" id="adKey">' + (k ? 'Changer de clé' : 'Coller ma clé') + '</button></p>' +
-    '<details class="adv"' + (c ? '' : ' open') + '><summary>Réglage manuel (nouveau dépôt, autre clé)</summary>' +
+    '<p class="hint">🔑 ' + (k ? 'Clé GitHub enregistrée sur cet ordinateur ✓ (elle sert pour tous vos sites)' : '<b>Aucune clé GitHub sur cet ordinateur.</b> Collez-la une fois : elle sert pour <b>tous</b> vos sites, et « Choisir le site en ligne » affichera la liste.') + ' <button type="button" class="lnk" id="adKey">' + (k ? 'Changer de clé' : 'Coller ma clé') + '</button></p>' +
+    '<details class="adv"><summary>Réglage manuel (avancé : un seul dépôt, tapé à la main)</summary>' +
     '<label class="f" for="adRepo">Dépôt GitHub<input type="text" id="adRepo" spellcheck="false" placeholder="compte/depot, ex. rsale1107/origamisabelle" value="' + esc(c ? c.owner + '/' + c.repo + (c.branch !== 'main' ? '#' + c.branch : '') : '') + '"></label>' +
     '<label class="f" for="adTok">Clé de publication<input type="password" id="adTok" autocomplete="off" spellcheck="false" placeholder="' + (k ? 'Vide = la clé enregistrée sur cet ordinateur' : 'github_pat_…') + '"></label>' +
     '<button class="btn c-violet" type="button" id="adPubGo">Tester et enregistrer</button></details>' +
@@ -4151,7 +4151,7 @@ function bindPubAdmin(){
   if ($('adEdGo')) $('adEdGo').onclick = edPublish;
   $('adEdCentral').onclick = edCentral;
   bindStats();
-  $('adPubChange').onclick = function(){ pubLink({only:true}); };
+  $('adPubChange').onclick = function(){ if (keyGet()) pubLink({only:true}); else keyAsk(function(){ pubLink({only:true}); }); };
   $('adKey').onclick = function(){ keyAsk(function(){ renderAdmin(); }); };
   var cc = pubCfg();
   if (cc && $('adDomGo')) { $('adDomGo').onclick = function(){ domSave(cc); }; domState(cc); }
