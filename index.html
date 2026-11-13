@@ -1,5 +1,7 @@
 <!doctype html>
 <html lang="fr"><head>
+<meta name="editeur-central" content="rsale1107">
+<meta name="robots" content="noindex, nofollow">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Éditeur de site v4.3</title>
@@ -3283,7 +3285,7 @@ function edCentral(){
     return edSource().then(function(src){
       var ver = (/<title>Éditeur de site (v[\d.]+)<\/title>/.exec(src) || [])[1] || '';
       src = src.replace(/<meta name="(editeur-depot|editeur-titre|editeur-central|robots)"[^>]*>\n?/gi, '').replace(/<head[^>]*>/i, function(h){
-        return h + '\n<meta name="editeur-central" content="' + esc(login) + '">\n<meta name="robots" content="noindex, nofollow">';
+        return h + '\n\n';
       });
       pubBusy = true;
       pubShow('<h2>🌍 Mise en ligne de l’éditeur</h2><div class="pub-bar"><i id="pubFill" style="width:30%"></i></div><p class="hint" id="pubStep" style="color:var(--txt)">Envoi…</p>');
@@ -4606,7 +4608,7 @@ function edPublish(){
     edSource().then(function(src){
       ver = (/<title>Éditeur de site (v[\d.]+)<\/title>/.exec(src) || [])[1] || '';
       src = src.replace(/<meta name="(editeur-depot|editeur-titre|robots)"[^>]*>\n?/gi, '').replace(/<head[^>]*>/i, function(h){
-        return h + '\n<meta name="editeur-depot" content="' + esc(c.owner + '/' + c.repo + (c.branch !== 'main' ? '#' + c.branch : '')) + '">\n<meta name="editeur-titre" content="' + esc(titre) + '">\n<meta name="robots" content="noindex, nofollow">';
+        return h + '\n\n\n';
       });
       pubBusy = true;
       pubShow('<h2>🌍 Mise en ligne de l’éditeur</h2><div class="pub-bar"><i id="pubFill" style="width:30%"></i></div><p class="hint" id="pubStep" style="color:var(--txt)">Envoi…</p>');
